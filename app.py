@@ -35,6 +35,7 @@ def strains():
         #results=cur.fetchall()
         
     #print(search)
+    #
     #return render_template("strains.html", data= results , ss =search)
     return render_template("strains.html",data = results)
 @app.route('/')
