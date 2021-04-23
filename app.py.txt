@@ -1,0 +1,20 @@
+mysql = MySQL(app)
+
+app.static_folder = 'static'
+
+@app.route('/strains')
+def strains():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT Strain FROM cannabisreco")
+    results = cur.fetchall()
+    print(results)
+    #return str(results[1]['Description'])
+    return render_template("strains.html", data= results)
+    
+@app.route('/')
+def age_confirmation():
+    return render_template("ageconfirmation.html")
+
+if __name__ =="__main__":
+    app.run(debug=True)
+
