@@ -19,15 +19,17 @@ app.static_folder = 'static'
 @app.route('/strains', methods=["GET","POST"])
 def strains():
     render_template("strains.html")
-    if request.method=="POST":
-        search = request.form.get("search")
-        cur = mysql.connection.cursor()
-        sqlquery = ("SELECT * from cannabis WHERE Rating = {}".format(search))
-        cur.execute(sqlquery)
-        results= cur.fetchall()
-        print(results)
+    search = request.form.get("search")
+    if search == None:
+        search = 5
+    cur = mysql.connection.cursor()
+    sqlquery = ("SELECT * from cannabis WHERE Rating = "+str(search))
+    print(sqlquery)
+    cur.execute(sqlquery)
+    results= cur.fetchall()
+    print(results)
     #return render_template("strains.html", data= results , ss =search)
-    return render_template("strains.html",data = results)
+    return(render_template("strains.html",data = results))
 @app.route('/')
 def age_confirmation():
     return render_template("ageconfirmation.html")
